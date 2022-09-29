@@ -2,8 +2,6 @@ package com.oscar.DTO;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -19,8 +17,5 @@ public class CustomSearchParamDTO {
     private Double precoCalcado;
     private Double precoCalcadoGT;
     private Double precoCalcadoLT;
-    private LocalDateTime dataCadastro;
-    private LocalDateTime dataCadastroGT;
-    private LocalDateTime dataCadastroLT;
 
 }

@@ -14,6 +14,7 @@ public class CategoriaDAO {
 
     private final String baseDAOEndPoint = "/categoria-calcado";
 
+
     public void salvarCategoria(CategoriaCalcado categoriaCalcado) throws Exception{
 
         JsonObject categoriaJson = new JsonObject();
@@ -58,11 +59,15 @@ public class CategoriaDAO {
 
             JsonObject categoriaJson = jsonElement.getAsJsonObject();
 
-            CategoriaCalcado categoriaCalcado = new CategoriaCalcado(categoriaJson.get("idCategoriaCalcado").getAsInt(),
-                    categoriaJson.get("descricaoCategoria").getAsString(),
-                    LocalDateTime.parse(categoriaJson.get("dataCadastroCategoria").getAsString()));
+            CategoriaCalcado categoriaCalcado = null;
 
-            categoriaCalcadoList.add(categoriaCalcado);
+                categoriaCalcado = new CategoriaCalcado(categoriaJson.get("idCategoriaCalcado").getAsInt(),
+                        categoriaJson.get("descricaoCategoria").getAsString(),
+                        LocalDateTime.parse(categoriaJson.get("dataCadastroCategoria").getAsString()));
+                categoriaCalcadoList.add(categoriaCalcado);
+
+
+
 
         });
 

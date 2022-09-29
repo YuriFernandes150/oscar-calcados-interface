@@ -4,7 +4,6 @@ import com.oscar.DAO.*;
 import com.oscar.DTO.CustomSearchParamDTO;
 import com.oscar.model.*;
 import com.oscar.util.ABMTextField;
-import org.jdesktop.swingx.JXDatePicker;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -17,8 +16,8 @@ import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -52,7 +51,6 @@ public class TelaPrincipal extends JFrame {
     JPanel painelCor = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JPanel painelTamanho = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JPanel painelCategoria = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    JPanel painelDataCad = new JPanel(new FlowLayout(FlowLayout.LEFT));
 
     JPanel painelControlesPagina = new JPanel();
     JPanel painelItensPagina = new JPanel(new FlowLayout(FlowLayout.RIGHT));
@@ -70,9 +68,6 @@ public class TelaPrincipal extends JFrame {
     JRadioButton rdPrecoEQ = new JRadioButton("Igual a");
 
     ButtonGroup gpRdPreco = new ButtonGroup();
-
-    JXDatePicker pickerDataCadastroDe = new JXDatePicker();
-    JXDatePicker pickerDataCadastroA = new JXDatePicker();
 
     JToggleButton toggleFiltros = new JToggleButton(">");
 
@@ -164,29 +159,12 @@ public class TelaPrincipal extends JFrame {
         comboTamanhoCalcado.setMinimumSize(new Dimension(150,40));
         painelTamanho.add(comboTamanhoCalcado);
 
-        painelDataCad.setBorder(new TitledBorder(new LineBorder(new Color(80,80,80), 2), "DATA DE CADASTRO"));
-
-        pickerDataCadastroDe.setBorder(new TitledBorder(new LineBorder(new Color(80,80,80), 2), "DE"));
-        pickerDataCadastroDe.setPreferredSize(new Dimension(150,40));
-        pickerDataCadastroDe.setFormats("dd/MM/yyyy");
-        pickerDataCadastroDe.setDate(dataAtual);
-        painelDataCad.add(pickerDataCadastroDe);
-
-        pickerDataCadastroA.setBorder(new TitledBorder(new LineBorder(new Color(80,80,80), 2), "A"));
-        pickerDataCadastroA.setPreferredSize(new Dimension(150,40));
-        pickerDataCadastroA.setFormats("dd/MM/yyyy");
-        pickerDataCadastroA.setDate(dataAtual);
-        painelDataCad.add(pickerDataCadastroA);
-
-        dataAtual = pickerDataCadastroA.getDate();
-
         painelLateralFiltros.add(painelDescricao);
         painelLateralFiltros.add(painelPreco);
         painelLateralFiltros.add(painelTamanho);
         painelLateralFiltros.add(painelMarca);
         painelLateralFiltros.add(painelCategoria);
         painelLateralFiltros.add(painelCor);
-        painelLateralFiltros.add(painelDataCad);
 
         painelLateralFiltros.setLayout(new BoxLayout(painelLateralFiltros, BoxLayout.Y_AXIS));
         painelLateralFiltros.setVisible(false);
@@ -380,9 +358,6 @@ public class TelaPrincipal extends JFrame {
         comboTamanhoCalcado.addActionListener(searchActionListener);
         comboMarcaCalcado.addActionListener(searchActionListener);
 
-        pickerDataCadastroDe.addPopupMenuListener(datePickerListener);
-        pickerDataCadastroA.addPopupMenuListener(datePickerListener);
-
         tabelaCalcados.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -522,6 +497,7 @@ public class TelaPrincipal extends JFrame {
                 calcadosResultList = new CalcadoDAO().buscarTodosOsCalcados(paginaAtual, itensPorPagina);
             }
             tabelaCalcadosModel.setNumRows(0);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
             for(Calcado calcado: calcadosResultList){
 
                 paginaAtual = calcado.getCurPage();
@@ -541,7 +517,7 @@ public class TelaPrincipal extends JFrame {
                         calcado.getMarcaCalcado().getDescricaoMarcaCalcado(),
                         calcado.getCorCalcado().getDescricaoCorCalcado(),
                         calcado.getPrecoCalcado(),
-                        calcado.getDataCadastro().getDayOfMonth() + "/" + calcado.getDataCadastro().getMonth().getValue() + "/" + calcado.getDataCadastro().getYear(),
+                        calcado.getDataCadastro().getDayOfMonth() + "/" +calcado.getDataCadastro().getMonth().getValue() + "/" +calcado.getDataCadastro().getYear(),
                         calcado
                 });
 
@@ -610,23 +586,6 @@ public class TelaPrincipal extends JFrame {
 
         }
 
-        LocalDateTime dataGT = null,
-                dataLT = null;
-
-
-
-        if(!pickerDataCadastroA.getDate().equals(dataAtual) || !pickerDataCadastroA.getDate().equals(dataAtual)){
-
-            if(!pickerDataCadastroA.getDate().equals(dataAtual)){
-                dataLT = pickerDataCadastroA.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-                System.out.println("GT" + dataLT);
-            }
-            if(!pickerDataCadastroDe.getDate().equals(dataAtual)){
-                dataGT = pickerDataCadastroDe.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
-                System.out.println("LT" + dataGT);
-            }
-        }
-
         return new CustomSearchParamDTO(descricao,
                 tamanho,
                 marca,
@@ -634,10 +593,8 @@ public class TelaPrincipal extends JFrame {
                 cor,
                 preco,
                 precoGT,
-                precoLT,
-                LocalDateTime.now(),
-                dataGT,
-                dataLT);
+                precoLT
+        );
 
 
     }

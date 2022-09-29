@@ -58,11 +58,13 @@ public class MarcaDAO {
 
             JsonObject marcaJson = jsonElement.getAsJsonObject();
 
-            MarcaCalcado marcaCalcado = new MarcaCalcado(marcaJson.get("idMarcaCalcado").getAsInt(),
-                    marcaJson.get("descricaoMarcaCalcado").getAsString(),
-                    LocalDateTime.parse(marcaJson.get("dataCadastroMarca").getAsString()));
+            MarcaCalcado marcaCalcado = null;
 
-            marcaCalcadoList.add(marcaCalcado);
+                marcaCalcado = new MarcaCalcado(marcaJson.get("idMarcaCalcado").getAsInt(),
+                        marcaJson.get("descricaoMarcaCalcado").getAsString(),
+                        LocalDateTime.parse(marcaJson.get("dataCadastroMarca").getAsString()));
+                marcaCalcadoList.add(marcaCalcado);
+
 
         });
 

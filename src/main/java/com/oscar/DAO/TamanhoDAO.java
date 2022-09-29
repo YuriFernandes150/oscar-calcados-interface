@@ -46,13 +46,13 @@ public class TamanhoDAO {
         content.forEach(jsonElement -> {
 
             JsonObject tamanhoElement = jsonElement.getAsJsonObject();
+            TamanhoCalcado t = null;
 
-            TamanhoCalcado t = new TamanhoCalcado(
-                    tamanhoElement.get("idTamanhoCalcado").getAsInt(),
-                    tamanhoElement.get("descricaoTamanhoCalcado").getAsString(),
-                    LocalDateTime.parse(tamanhoElement.get("dataCadastroTamanho").getAsString()));
-
-            tamanhoCalcadoList.add(t);
+                t = new TamanhoCalcado(
+                        tamanhoElement.get("idTamanhoCalcado").getAsInt(),
+                        tamanhoElement.get("descricaoTamanhoCalcado").getAsString(),
+                        LocalDateTime.parse(tamanhoElement.get("dataCadastroTamanho").getAsString()));
+                tamanhoCalcadoList.add(t);
 
         });
 
@@ -71,12 +71,13 @@ public class TamanhoDAO {
 
                 JsonObject tamanhoElement = jsonElement.getAsJsonObject();
 
-                TamanhoCalcado t = new TamanhoCalcado(
-                        tamanhoElement.get("idTamanhoCalcado").getAsInt(),
-                        tamanhoElement.get("descricaoTamanhoCalcado").getAsString(),
-                        LocalDateTime.parse(tamanhoElement.get("dataCadastroTamanho").getAsString()));
+                TamanhoCalcado t = null;
 
-                tamanhoCalcadoList.add(t);
+                    t = new TamanhoCalcado(
+                            tamanhoElement.get("idTamanhoCalcado").getAsInt(),
+                            tamanhoElement.get("descricaoTamanhoCalcado").getAsString(),
+                            LocalDateTime.parse(tamanhoElement.get("dataCadastroTamanho").getAsString()));
+                    tamanhoCalcadoList.add(t);
 
             });
         }

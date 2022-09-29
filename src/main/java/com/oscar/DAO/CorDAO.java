@@ -58,11 +58,14 @@ public class CorDAO {
 
             JsonObject corJson = jsonElement.getAsJsonObject();
 
-            CorCalcado corCalcado = new CorCalcado(corJson.get("idCorCalcado").getAsInt(),
-                    corJson.get("descricaoCorCalcado").getAsString(),
-                    LocalDateTime.parse(corJson.get("dataCadastroCor").getAsString()));
+            CorCalcado corCalcado = null;
 
-            corCalcadoList.add(corCalcado);
+                corCalcado = new CorCalcado(corJson.get("idCorCalcado").getAsInt(),
+                        corJson.get("descricaoCorCalcado").getAsString(),
+                        LocalDateTime.parse(corJson.get("dataCadastroCor").getAsString()));
+
+                corCalcadoList.add(corCalcado);
+
 
         });
 

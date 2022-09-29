@@ -7,16 +7,14 @@ import com.oscar.DTO.CustomSearchParamDTO;
 import com.oscar.model.*;
 import com.oscar.util.RESTMethods;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class CalcadoDAO {
 
     private final String baseDAOEndPoint = "/calcado";
+
 
     public void salvarCalcado(Calcado calcado) throws Exception{
 
@@ -119,10 +117,13 @@ public class CalcadoDAO {
             JsonObject marcaJson = calcadoJson.get("marcaCalcado").getAsJsonObject();
             JsonObject tamanhoJson = calcadoJson.get("tamanhoCalcado").getAsJsonObject();
 
-            CategoriaCalcado categoriaCalcado = new CategoriaCalcado(
-                    categoriaJson.get("idCategoriaCalcado").getAsInt(),
-                    categoriaJson.get("descricaoCategoria").getAsString(),
-                    LocalDateTime.parse(categoriaJson.get("dataCadastroCategoria").getAsString()));
+            CategoriaCalcado categoriaCalcado = null;
+
+                categoriaCalcado = new CategoriaCalcado(
+                        categoriaJson.get("idCategoriaCalcado").getAsInt(),
+                        categoriaJson.get("descricaoCategoria").getAsString(),
+                        LocalDateTime.parse(categoriaJson.get("dataCadastroCategoria").getAsString()));
+
 
             CorCalcado corCalcado = new CorCalcado(
                     corJson.get("idCorCalcado").getAsInt(),
@@ -154,8 +155,10 @@ public class CalcadoDAO {
                     categoriaCalcado,
                     tamanhoCalcado
             );
-
             calcadoList.add(calcado);
+
+
+
 
         });
 
@@ -183,10 +186,13 @@ public class CalcadoDAO {
             JsonObject marcaJson = calcadoJson.get("marcaCalcado").getAsJsonObject();
             JsonObject tamanhoJson = calcadoJson.get("tamanhoCalcado").getAsJsonObject();
 
-            CategoriaCalcado categoriaCalcado = new CategoriaCalcado(
-                    categoriaJson.get("idCategoriaCalcado").getAsInt(),
-                    categoriaJson.get("descricaoCategoria").getAsString(),
-                    LocalDateTime.parse(categoriaJson.get("dataCadastroCategoria").getAsString()));
+            CategoriaCalcado categoriaCalcado = null;
+
+                categoriaCalcado = new CategoriaCalcado(
+                        categoriaJson.get("idCategoriaCalcado").getAsInt(),
+                        categoriaJson.get("descricaoCategoria").getAsString(),
+                        LocalDateTime.parse(categoriaJson.get("dataCadastroCategoria").getAsString()));
+
 
             CorCalcado corCalcado = new CorCalcado(
                     corJson.get("idCorCalcado").getAsInt(),
@@ -263,16 +269,6 @@ public class CalcadoDAO {
         if(params.getTamanhoCalcado() != null){
             if(urlParams.length() > 0) urlParams.append("&");
             urlParams.append("tamanhoCalcado=").append(params.getTamanhoCalcado());
-        }
-        if(params.getDataCadastroGT() != null){
-            if(urlParams.length() > 0) urlParams.append("&");
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-            urlParams.append("dataCadastroGT=").append(sdf.format(Date.from(params.getDataCadastroGT().atZone(ZoneId.systemDefault()).toInstant())));
-        }
-        if(params.getDataCadastroLT() != null){
-            if(urlParams.length() > 0) urlParams.append("&");
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
-            urlParams.append("dataCadastroLT=").append(sdf.format(Date.from(params.getDataCadastroLT().atZone(ZoneId.systemDefault()).toInstant())));
         }
 
         if(urlParams.length() > 0) urlParams.append("&");
