@@ -78,4 +78,6 @@ Clicando no botão com sinal ```>``` , podemos ver os filtros:
 
 Podemos usar qualquer combinação de filtros que quisermos, vamos tentar buscar todos os calçados da cor Azul, e que sejam da categoria Chinelo:
 
-![image](https://user-images.githubusercontent.com/16628285/193142447-6b348d54-cfcf-4142-a848-4a0fc1c8a5bd.png).
+![image](https://user-images.githubusercontent.com/16628285/193142447-6b348d54-cfcf-4142-a848-4a0fc1c8a5bd.png)
+
+E essas são as funções básicas desssa interface, por favor, não hesite em publicar issues caso encontre algum problema!
